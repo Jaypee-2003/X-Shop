@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Choose from "./components/Choose";
 import Home from "./components/Home";
@@ -17,6 +18,7 @@ function App() {
   const changeTheme = () => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
   };
+
   useEffect(() => {
     const registerAnimations = () => {
       const sr = scrollreveal({
@@ -44,23 +46,36 @@ function App() {
     };
     registerAnimations();
   }, []);
-  window.setTimeout(() => {
+
+  useEffect(() => {
     const home = document.getElementsByClassName("home");
-    home[0].style.transform = "none";
-  }, 1500);
+    if (home.length > 0) {
+      home[0].style.transform = "none";
+    }
+  }, []);
+
   return (
-    <div data-theme={theme} className="app">
-      <ScrollTop />
-      <Navbar changeTheme={changeTheme} currentTheme={theme} />
-      <Home />
-      <Services />
-      <Categories />
-      <Recommend />
-      <Choose />
-      <Products />
-      <Promo />
-      <Footer />
-    </div>
+    <Router>
+      <div data-theme={theme} className="app">
+        <ScrollTop />
+        <Navbar changeTheme={changeTheme} currentTheme={theme} />
+        <Routes>
+          <Route path="/X-Shop" element={<Navigate to="/" replace />} />
+          <Route path="/" element={
+            <>
+              <Home />
+              <Services />
+              <Categories />
+              <Recommend />
+              <Choose />
+              <Products />
+              <Promo />
+              <Footer />
+            </>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -41,7 +41,7 @@ function Footer() {
     <footer className="py-3 mx-3">
       <div className="brand-container">
         <div className="brand">
-          <span>ehya</span>
+          <span>X Shop</span>
           <span className="dot">.</span>
         </div>
         <p className="description">
